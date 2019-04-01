@@ -12,16 +12,24 @@ def readcsv(filename):
 def train():
 	initState = readcsv("input.csv")
 
-	p = Population(100)   
+	p = Population(20)   
 	p.initPop(initState)
 
 
-	numGen = 500
+	numGen = 100000
 
+	bestFit = 28
 	for i in range(0, numGen):
-	    print("gen ", i," ",p.getBest())
 
 	    p.fitPop()
+
+	    bFit = p.getBest()
+
+	    if bFit < bestFit:
+	    	bestFit = bFit
+
+	    print("gen ", i," ", bFit)
+
 	    popAux = []
         
 	    for j in range(0, p.getDim()):
@@ -38,6 +46,12 @@ def train():
         
 	p.fitPop()
 	
+	bFit = p.getBest()
+
+	if bFit < bestFit:
+	   	bestFit = bFit
+
+	print("impresionant fitness   :   ", bestFit, "!!!!Q")
 
 train()
 

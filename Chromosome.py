@@ -21,6 +21,7 @@ class Chromosome():
     def setReprPos(self,pos,val):
         self.__repr[pos] = val
 
+
     def is_valid(self,line):
         return np.unique(line).shape == line.shape
 

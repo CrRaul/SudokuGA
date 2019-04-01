@@ -34,27 +34,42 @@ class Population():
         for i in range(0, self.__dimension):
             self.__population[i] = pop[i]
 
-
+            '''
     def selection(self):
-        pos1 = random.randint(0, self.__dimension-1)
-        pos2 = random.randint(0, self.__dimension-1)
+        max     = sum([c.getFitness() for c in self.__population])
+        pick    = random.uniform(0, max)
+        current = 0
+        for chromosome in self.__population:
+            current += chromosome.getFitness()
+            if current > pick:
+                return chromosome
+    '''
+    def selection(self):
+        pos = []
 
-        if(self.__population[pos1].getFitness() < self.__population[pos2].getFitness()):
-            return self.__population[pos1]
-        return self.__population[pos2]
+        n = random.randint(5,10)
 
+        for i in range(n):
+            pos.append( random.randint(0, self.__dimension-1))
+
+        bestPos = pos[0]
+        for i in range(1,n):
+            if(self.__population[bestPos].getFitness() > self.__population[pos[i]].getFitness()):
+                bestPos = pos[i]
+        return self.__population[bestPos]
+    
 
     def xo(M, F):
         xo = M
 
         for i in range(0,81):
-            if random.uniform(0,1) > 0.5:
+            if random.uniform(0,1) >= 0.5:
                 xo.setReprPos(i,F.getReprPos(i))
         return xo
 
 
     def mutation(c):
-        n = random.randint(1,10)
+        n = random.randint(2,5)
         for i in range(n):
             p = random.randint(0,80)
             c.setReprPos(p, random.randint(0,9))
